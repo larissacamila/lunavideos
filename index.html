@@ -1,0 +1,124 @@
+<style>
+body {
+  margin: 0;
+  background-color: #141414;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* HERO */
+.hero {
+  height: 80vh;
+  background: linear-gradient(to top, #141414, rgba(0,0,0,0.4)),
+              url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4');
+  background-size: cover;
+  background-position: center;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero h1 {
+  font-size: 60px;
+  margin: 0;
+}
+
+.hero p {
+  font-size: 20px;
+  max-width: 500px;
+}
+
+.hero .buttons a {
+  display: inline-block;
+  margin-right: 15px;
+  padding: 12px 25px;
+  background: red;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.hero .buttons a.secondary {
+  background: rgba(255,255,255,0.2);
+}
+
+/* SEÇÕES */
+.section {
+  padding: 20px 40px;
+}
+
+.section h2 {
+  margin-bottom: 10px;
+}
+
+.row {
+  display: flex;
+  overflow-x: auto;
+}
+
+.card {
+  min-width: 200px;
+  height: 120px;
+  background: #333;
+  margin-right: 10px;
+  border-radius: 4px;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.1);
+}
+
+/* RODAPÉ */
+.footer {
+  padding: 30px;
+  text-align: center;
+  font-size: 14px;
+  color: #aaa;
+}
+</style>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>LunaVideos</h1>
+  <p>Histórias, músicas e criações fora do algoritmo.</p>
+  <div class="buttons">
+    <a href="/search/label/video">▶ Assistir</a>
+    <a href="/p/sobre.html" class="secondary">+ Minha Lista</a>
+  </div>
+</div>
+
+<!-- FILEIRAS -->
+<div class="section">
+  <h2>🎬 Vídeos Recentes</h2>
+  <div class="row">
+    <a href="#"><div class="card" style="background-image:url('https://picsum.photos/400/200?1');"></div></a>
+    <a href="#"><div class="card" style="background-image:url('https://picsum.photos/400/200?2');"></div></a>
+    <a href="#"><div class="card" style="background-image:url('https://picsum.photos/400/200?3');"></div></a>
+  </div>
+</div>
+
+<div class="section">
+  <h2>🎵 Músicas</h2>
+  <div class="row">
+    <a href="#"><div class="card" style="background-image:url('https://picsum.photos/400/200?4');"></div></a>
+    <a href="#"><div class="card" style="background-image:url('https://picsum.photos/400/200?5');"></div></a>
+  </div>
+</div>
+
+<div class="section">
+  <h2>📖 Histórias</h2>
+  <div class="row">
+    <a href="#"><div class="card" style="background-image:url('https://picsum.photos/400/200?6');"></div></a>
+    <a href="#"><div class="card" style="background-image:url('https://picsum.photos/400/200?7');"></div></a>
+  </div>
+</div>
+
+<!-- RODAPÉ -->
+<div class="footer">
+  © 2026 • Projeto independente •JEQJ
+</div>
