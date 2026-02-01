@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Vamos ver juntos?</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  background:#0b0b0b;
+  color:#eee;
+  font-family: 'Georgia', serif;
+  margin:0;
+}
+
+header {
+  text-align:center;
+  padding:20px;
+  border-bottom:1px solid #333;
+}
+
+header h1 {
+  font-size:2.2em;
+}
+
+header p {
+  opacity:0.7;
+}
+
+#container {
+  display:flex;
+  flex-wrap:wrap;
+}
+
+#player {
+  flex:2;
+  padding:20px;
+}
+
+#chat {
+  flex:1;
+  background:#111;
+  border-left:1px solid #333;
+  display:flex;
+  flex-direction:column;
+}
+
+iframe {
+  width:100%;
+  height:420px;
+  border:none;
+}
+
+#messages {
+  flex:1;
+  padding:10px;
+  overflow-y:auto;
+  font-size:14px;
+}
+
+#messages p {
+  margin:5px 0;
+}
+
+#chat input {
+  background:#000;
+  color:#fff;
+  border:1px solid #333;
+  padding:8px;
+  margin:4px;
+}
+
+#chat button {
+  background:#222;
+  color:#fff;
+  border:none;
+  padding:10px;
+  cursor:pointer;
+}
+
+#chat button:hover {
+  background:#444;
+}
+
+.luna {
+  text-align:center;
+  font-size:13px;
+  opacity:0.6;
+  padding:5px;
+  border-top:1px solid #333;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🎞️ Vamos ver juntos?</h1>
+  <p>Estou aqui. A gente pode assistir em silêncio.</p>
+</header>
+
+<div id="container">
+
+  <!-- FILME -->
+  <div id="player">
+    <iframe src="https://archive.org/embed/night_of_the_living_dead" allowfullscreen></iframe>
+    <p>🕯️ Filme de hoje: <b>A Noite dos Mortos-Vivos (1968)</b></p>
+  </div>
+
+  <!-- CHAT -->
+  <div id="chat">
+    <div id="messages"></div>
+
+    <input id="name" placeholder="Seu nome">
+    <input id="text" placeholder="Comente o filme...">
+    <button onclick="sendMessage()">Enviar</button>
+
+    <div class="luna">
+      🌙 Luna está aqui, assistindo com vocês.
+    </div>
+  </div>
+
+</div>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<script>
+var firebaseConfig = {
+  apiKey: "SUA_API_KEY",
+  authDomain: "SEU_PROJETO.firebaseapp.com",
+  databaseURL: "https://SEU_PROJETO.firebaseio.com",
+  projectId: "SEU_PROJETO"
+};
+
+firebase.initializeApp(firebaseConfig);
+var db = firebase.database();
+
+// SESSÃO (troque o nome para cada filme)
+var session = "sessao_night_1968";
+
+function sendMessage() {
+  var name = document.getElementById("name").value || "Convidado";
+  var text = document.getElementById("text").value;
+
+  if(text.trim() === "") return;
+
+  // filtro simples
+  var proibidas = ["palavrão1","palavrão2"];
+  proibidas.forEach(p => {
+    text = text.replace(new RegExp(p,"gi"), "***");
+  });
+
+  db.ref("chats/"+session).push({
+    name: name,
+    message: text,
+    time: Date.now()
+  });
+
+  document.getElementById("text").value = "";
+}
+
+db.ref("chats/"+session).limitToLast(50).on("child_added", function(snapshot){
+  var msg = snapshot.val();
+  var div = document.getElementById("messages");
+  div.innerHTML += "<p><b>"+msg.name+":</b> "+msg.message+"</p>";
+  div.scrollTop = div.scrollHeight;
+});
+</script>
+
+</body>
+</html>
